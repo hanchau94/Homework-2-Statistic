@@ -1,0 +1,251 @@
+---
+title: "Homework_2"
+output: pdf_document
+date: "2023-02-02"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Han Chau - 20012654
+
+# Question 1:
+
+- We have:
+$$\mu=E(X)=\frac{1}{3}$$
+$$\sigma^2=Vax(X)=\frac{2}{9(3\alpha+1)}$$
+a) The method of movements:
+$$E(X)=\bar{X}$$
+$$E(X^2)=\bar{X^2}$$
+- We also have:
+$$\sigma^2 = E(X^2)-(E(X))^2$$
+\begin{align*}
+<=>\frac{2}{9(3\hat{\alpha}+1)} &= \bar{X^2} - \frac{1}{9}\\
+\frac{2}{3\hat{\alpha}+1} &= 9\bar{X^2}-1\\
+27\bar{X^2}\alpha -3\alpha&=3-9\bar{X^2}\\
+\hat{\alpha}(9\bar{X^2}-1) &= 1 - 3\bar{X^2}\\
+=> \hat{\alpha} &= \frac{1 - 3\bar{X^2}}{9\bar{X^2}-1}\\
+\end{align*}
+
+b) the mle of $\alpha$ is:
+\begin{align*}
+L(\alpha|x) &= f(x|\alpha) =\prod_{x = 1}^{n} f(x_i|\alpha)= \prod_{x = 1}^{n} \left(\frac{\Gamma{(3\alpha)}}{\Gamma{(\alpha)}\Gamma{(2\alpha})}x^{\alpha-1}(1-x)^{2\alpha-1}\right)\\
+l(\alpha) &= log\left[\left(\frac{\Gamma{(3\alpha)}}{\Gamma{(\alpha)}\Gamma{(2\alpha})}\right)^n\prod_{x = 1}^{n}x^{\alpha-1}(1-x)^{2\alpha-1}\right]\\
+&= nlog\Gamma{(3\alpha)}-nlog\Gamma{(\alpha)}-nlog\Gamma{(2\alpha)}+\sum_{i-1}^{n} log[x^{\alpha-1}(1-x)^{2\alpha-1}]\\
+\frac{d}{d\alpha}l(\alpha)&=n\left(\frac{\Gamma'{(3\alpha)}}{\Gamma{(3\alpha)}}-\frac{\Gamma'{(\alpha)}}{\Gamma{(\alpha)}}-\frac{\Gamma'{(2\alpha)}}{\Gamma{(2\alpha)}}\right) + \sum_{i=1}^{n} log x_i + 2\sum_{i=1}^{n} log (1-x_i)\\
+\end{align*}
+- So, the equation of the mle of $\alpha$ is:
+$$n\left(\frac{\Gamma'{(3\alpha)}}{\Gamma{(3\alpha)}}-\frac{\Gamma'{(\alpha)}}{\Gamma{(\alpha)}}-\frac{\Gamma'{(2\alpha)}}{\Gamma{(2\alpha)}}\right) + \sum_{i=1}^{n} log x_i + 2\sum_{i=1}^{n} log (1-x_i) = 0$$
+d) The asymptotic variance of the mle:
+- We have: Let $A(\alpha)=\frac{\Gamma{(3\alpha)}}{\Gamma{(\alpha)}\Gamma{(2\alpha)}}$
+$$ logf(x|\alpha)=log(A(\alpha))+(\alpha-1)logx + (2\alpha - 1)log(1-x)$$
+
+\begin{align*}
+\frac{\partial}{\partial \alpha}logf(x|\alpha) &= \frac{A'(\alpha)}{A(\alpha)}+log x + 2log(1-x)\\
+\frac{\partial^2}{\partial \alpha^2}log f(x|\alpha) &= \frac{A''(\alpha)A(\alpha)-(A'(\alpha))^2}{A^2(\alpha)}\\
+I(\alpha) &=-E\left(\frac{\partial^2}{\partial \alpha}logf(X|\alpha)\right)\\
+&= - \frac{A''(\alpha)A(\alpha)-(A'(\alpha))^2}{A^2(\alpha)}\\
+&=\frac{(A'(\alpha))^2 - A''(\alpha)A(\alpha)}{A^2(\alpha)}\\
+\end{align*}
+
+- The variance of $\alpha$ is asymptotically equivalent to
+$$\frac{1}{nI(\alpha)}=\frac{A^2(\alpha)}{n[(A'(\alpha))^2 - A''(\alpha)A(\alpha)]}$$
+
+# Question 2:
+
+- We have: $P(X=1)=\theta$ and $P(X=2)=1-\theta$, $x_1=1, x_2=2, x_3=2$.
+a) The method of moments estimate of $\theta$: $X \in 1,2$
+\begin{align*}
+E(X) &= \sum_{i=1}^2 xP(X=x)\\
+&= 1(X=1) + 2P(X=2)\\
+&= \theta + 2(1-\theta)\\
+&= 2-\theta&   (1)\\
+\bar{X} &= \frac{1+2+2}{3}\\
+&=\frac{5}{3}&  (2)\\
+\end{align*}
+
+- From (1) and (2):$\hat{\theta}=\frac{1}{3}$
+
+b) The likelihood function is:
+\begin{align*}
+L(\theta|x) &= \prod_{i=1}^{3}P(x_i|\theta)\\
+&= P(x_1|\theta)P(x_2|\theta)P(x_3|theta)\\
+&= \theta(1-\theta)^2\\
+\end{align*}
+
+c) The maximum likelihood estimate of $\theta$:
+\begin{align*}
+l(\theta) &= log(\theta(1-\theta)^2)\\
+&= log \theta + 2log (1 - \theta)\\
+\frac{d}{d\theta} &= \frac{1}{\theta}-\frac{2}{1-\theta}:=0\\
+&=> \frac{1-3\hat{\theta}}{\hat{\theta}(1-\hat{\theta})} = 0\\
+&=> \hat{\theta} = \frac{1}{3}
+\end{align*}
+
+$$\frac{d^2}{d^2\theta}l(\theta) =-\frac{1}{\theta^2}+\frac{2}{(1-\theta)^2}$$
+- With $\hat{\theta}=\frac{1}{3}$, we see $\frac{d^2}{d^2\theta}l(\theta) < 0$, so $\hat{\theta}$ is a maximum value.
+
+d) A prior distribution that is uniform on [0, 1], what is its posterior density
+- We have: $\theta \sim {\sf Uniform}[0,1]$ that is $f(\theta)=1$   $\forall\theta \in [0,1]$
+- Using the Bayesian approach to parameter estimation:
+\begin{align*}
+f(\theta|x) &= \theta(1-\theta)^2 * 1\\
+& = \theta^{2-1}(1-\theta)^{3-1}\\
+\end{align*}
+- Hence, the posterior density is Beta(2,3).
+
+# Question 3:
+```{r}
+norm_sample = c(5.3299, 4.2537, 3.1502, 3.7032, 1.6070, 6.3923, 3.1181, 6.5941, 3.5281, 
+                4.7433, 0.1077, 1.5977, 5.4920, 1.7220, 4.1547, 2.2799)
+
+```
+
+a) The mean and variance:
+- The mean based on the sample mean is:
+$$\mu=E(X)$$
+$$\hat{\mu}= \bar{X}=\frac{1}{n}\sum_{i = 1}^{n} X_i$$
+
+```{r}
+sample_mean = mean(norm_sample)
+cat("The mean of sample is",sample_mean)
+```
+
+- The variance based on the sample mean is:
+$$\hat{\sigma}^2= \bar{X^2}-\bar{X} = \frac{\sum_{i=1}^{n}(X_i-\bar{X})^2}{n}$$
+
+```{r}
+varriance = var(norm_sample)*(length(norm_sample)-1)/length(norm_sample)
+cat("The variance of the sample is ",varriance)
+
+```
+b) Give 90%, 95%, and 99% confidence intervals for $\mu$ and $\sigma^2$:
+
+- To find the intervals of $\mu$, we use the below formula:
+$$P\left(\bar{X}-\frac{S}{\sqrt{n}}t_{n-1}\left(\frac{\alpha}{2}\right)\le\mu\le\bar{X}+\frac{S}{\sqrt{n}}t_{n-1}\left(\frac{\alpha}{2}\right)\right) = 1-\alpha$$
+with $(1-\alpha)$ are 0.9, 0.95, and 0.99;$t_{n-1}\left(\frac{\alpha}{2}\right)$ defined by T distribution; and S is the standard error:
+$$S=\sqrt{\frac{\sum_{i=1}^{n}(X_i-\bar{X})^2}{n-1}}$$
+```{r}
+std = sd(norm_sample)
+cat("S = ",std)
+```
+
+- To find the intervals of $\sigma^2$, we use the below formula:
+
+$$P\left(\frac{(n-1)S^2}{\mathcal{X}^2_{(n-1)}(\alpha/2)}\le\sigma\le\frac{(n-1)S^2}{\mathcal{X}^2_{(n-1)}(1-\alpha/2)}\right) = 1-\alpha$$
+with $\mathcal{X}^2_{(n-1)}(\alpha/2)$ and $\mathcal{X}^2_{(n-1)}(1-\alpha/2)$ are defined by Chi_square distribution.
+
+```{r}
+n = length(norm_sample)
+# 90 %
+alpha_1 = 0.1
+t_distribution = qt(0.95,df = n-1 )
+mean_lower = sample_mean - t_distribution*std/sqrt(n)
+mean_upper = sample_mean + t_distribution*std/sqrt(n)
+# inter_mean_test = t.test(norm_sample, conf.level = 0.9)
+chi_dist_upper = qchisq(0.05,df=n-1)
+chi_dist_lower = qchisq(0.95,df=n-1)
+var_lower_1 = (n-1)*std^2/(chi_dist_lower)
+var_upper_1 = (n-1)*std^2/(chi_dist_upper)
+cat("The 90% intervals for mean is [",mean_lower,",",mean_upper,"]\n",
+    "The 90% intervals for variance is [",var_lower_1,",",var_upper_1,"]")
+```
+
+
+```{r}
+# 95%
+alpha_1 = 0.05
+t_distribution = qt(0.975,df = n-1 )
+mean_lower = sample_mean - t_distribution*std/sqrt(n)
+mean_upper = sample_mean + t_distribution*std/sqrt(n)
+# inter_mean_test = t.test(norm_sample, conf.level = 0.95)
+chi_dist_upper = qchisq(0.025,df=n-1)
+chi_dist_lower = qchisq(0.975,df=n-1)
+var_lower_2 = (n-1)*std^2/(chi_dist_lower)
+var_upper_2 = (n-1)*std^2/(chi_dist_upper)
+cat("The 95% intervals for mean is [",mean_lower,",",mean_upper,"]\n",
+    "The 95% intervals for variance is [",var_lower_2,",",var_upper_2,"]")
+```
+ 
+```{r}
+# 99%
+alpha_1 = 0.01
+t_distribution = qt(0.995,df = n-1 )
+mean_lower = sample_mean - t_distribution*std/sqrt(n)
+mean_upper = sample_mean + t_distribution*std/sqrt(n)
+# inter_mean_test = t.test(norm_sample, conf.level = 0.99)
+chi_dist_upper = qchisq(0.005,df=n-1)
+chi_dist_lower = qchisq(0.995,df=n-1)
+var_lower_3 = (n-1)*std^2/(chi_dist_lower)
+var_upper_3 = (n-1)*std^2/(chi_dist_upper)
+cat("The 99% intervals for mean is [",mean_lower,",",mean_upper,"]\n",
+    "The 99% intervals for variance is [",var_lower_3,",",var_upper_3,"]")
+
+```
+
+c) Give 90%, 95%, and 99% confidence intervals for $\sigma$
+
+```{r}
+# 90 %
+std_lower = sqrt(var_lower_1)
+std_upper = sqrt(var_upper_1)
+cat("The 90% intervals for variance is [",std_lower,",",std_upper,"]")
+
+
+```
+
+```{r}
+
+std_lower = sqrt(var_lower_2)
+std_upper = sqrt(var_upper_2)
+cat("The 95% intervals for variance is [",std_lower,",",std_upper,"]")
+```
+
+```{r}
+chi_dist_upper = qchisq(0.005,df=n-1)
+chi_dist_lower = qchisq(0.995,df=n-1)
+std_lower = sqrt(var_lower_3)
+std_upper = sqrt(var_upper_3)
+cat("The 99% intervals for variance is [",std_lower,",",std_upper,"]")
+```
+
+d)  How much larger a sample do you think you would need to halve the length of the confidence interval for $\mu$?
+- We have the length of the confidence interval is:
+$$\bar{X}+\frac{S}{\sqrt{n}}t_{n-1}\left(\frac{\alpha}{2}\right)-\left(\bar{X}-\frac{S}{\sqrt{n}}t_{n-1}\left(\frac{\alpha}{2}\right)\right)=2\frac{S}{\sqrt{n}}t_{n-1}\left(\frac{\alpha}{2}\right)$$
+- Let $n_1$ is the number of the sample to halve the length of the confidence interval for $\mu$, we have:
+$$\frac{S}{\sqrt{n}}t_{n-1}\left(\frac{\alpha}{2}\right)=2\frac{S}{\sqrt{n_1}}t_{n_1-1}\left(\frac{\alpha}{2}\right)$$
+
+$$\Longleftrightarrow n_1\left(t_{n-1}\left(\frac{\alpha}{2}\right)\right)^2=4n\left(t_{n_1-1}\left(\frac{\alpha}{2}\right)\right)^2$$
+$$\Longrightarrow n_1 = 4n\left(\frac{t_{n_1-1}\left(\frac{\alpha}{2}\right)}{t_{n-1}\left(\frac{\alpha}{2}\right)}\right)^2$$
+- We can see if $n_1=4n$, $t_{n_1-1}/t_{n-1} \approx 1$.
+==> The estimated sample $n_1$ is 4 times $n$, the length of the confidence interval for $\mu$ will halve.
+
+## Question 4:
+- Let Y be the number of heads, so p(H) = $\frac{1}{4}$ or $\frac{3}{4}$.
+- The possible values of Y are 0, 1, and 2.
+$$P(Y=y) = \binom{n}{y}p^y(1-p)^{n-y}$$
++ y = 0:
+$$P\left(Y=0|p(H)=\frac{1}{4}\right)=\binom{2}{0}\left(1-\frac{1}{4}\right)^2=\frac{9}{16}$$
+$$P\left(Y=0|p(H)=\frac{3}{4}\right)=\binom{2}{0}\left(1-\frac{3}{4}\right)^2=\frac{1}{16}$$
+=> $p(H)=\frac{1}{4}$ is the maximum value of the probability that Y=0.
++ y = 1:
+$$P\left(Y=1|p(H)=\frac{1}{4}\right)=\binom{2}{1}\frac{1}{4}\left(1-\frac{1}{4}\right)=\frac{3}{8}$$
+$$P\left(Y=1|p(H)=\frac{3}{4}\right)=\binom{2}{1}\frac{3}{4}\left(1-\frac{3}{4}\right)=\frac{3}{8}$$
+=> $p(H)=\frac{1}{4}$ and $p(H)=\frac{3}{4}$ are equal the probability that Y=1.
++ y = 2:
+
+$$P\left(Y=2|p(H)=\frac{1}{4}\right)=\binom{2}{2}\left(\frac{1}{4}\right)^2=\frac{1}{16}$$
+$$P\left(Y=2|p(H)=\frac{3}{4}\right)=\binom{2}{2}\left(\frac{3}{4}\right)^2=\frac{9}{16}$$
+=> $p=\frac{3}{4}$ is the maximum value of the probability that Y=2.
+
+- MLE of p is:
+$$L(p) = \binom{2}{y}p^y(1-p)^{2-y}$$
+- Suppose $L(\frac{1}{4})>L(\frac{3}{4})$:
+$$\binom{2}{y}\left(\frac{1}{4}\right)^y\left(\frac{3}{4}\right)^{2-y}>\binom{2}{y}\left(\frac{3}{4}\right)^y\left(\frac{1}{4}\right)^{2-y}$$
+$$\left(\frac{1}{4}\right)^{2y}\left(\frac{3}{4}\right)^{2}>\left(\frac{3}{4}\right)^{2y}\left(\frac{1}{4}\right)^{2}$$
+$$3^2>3^{2y}$$
+$$2>2y$$
+$$\Longrightarrow y<1$$
+- Similarly, we see if $L(\frac{1}{4})<L(\frac{3}{4})$, so y > 1.
+
